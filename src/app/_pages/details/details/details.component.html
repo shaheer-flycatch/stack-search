@@ -1,0 +1,57 @@
+<nz-card style="width: 100%" nzHoverable>
+    <nz-card-meta
+      style="font-size: larger"
+      [nzTitle]="titleTemplate"
+      [nzDescription]="descriptionTemplate"
+      [nzAvatar]="avatarTemplate"
+    >
+    </nz-card-meta>
+  </nz-card>
+  <ng-template #titleTemplate>
+    <h1>{{ selectedQuestion.title }}</h1>
+  </ng-template>
+  <ng-template #avatarTemplate>
+    <img nz-image width="200px" height="200px" [nzSrc]="selectedQuestion.owner.profile_image" />
+  </ng-template>
+  <ng-template #descriptionTemplate>
+    <nz-row class="description">
+      <label>Name of the user: <strong> {{ selectedQuestion.owner.display_name }}</strong> </label>
+    </nz-row>
+    <nz-row class="link">
+      <label>User ID: <strong>{{ selectedQuestion.owner.user_id }}</strong></label>
+    </nz-row>
+    <nz-row class="link">
+      <label
+        >Link to the discussion:
+        <a href={{selectedQuestion.link}}>Click here</a></label
+      >
+    </nz-row>
+    <nz-row class="link">
+      <label>License:<strong>{{ selectedQuestion.content_license }}</strong> </label>
+    </nz-row>
+    <nz-row class="link">
+      <label>Number of viewers: <strong> {{ selectedQuestion.view_count }}</strong></label>
+    </nz-row>
+    <nz-row class="link">
+      <label>Number of answers: <strong> {{ selectedQuestion.answer_count }}</strong></label>
+    </nz-row>
+    <nz-row class="link">
+      <nz-col *ngFor="let tags of selectedQuestion.tags; let i; as: index">
+        <nz-tag [nzColor]="'Green'">{{ tags }}</nz-tag>
+      </nz-col>
+    </nz-row>
+  </ng-template>
+<nz-list nzItemLayout="vertical">
+    <nz-list-item *ngFor="let answer of answers">
+      <nz-list-item-meta>
+        <nz-list-item-meta-avatar [nzSrc]="answer.owner.profile_image"> </nz-list-item-meta-avatar>
+        <nz-list-item-meta-title>
+          <a href={{answer.owner.link}}>{{ answer.owner.display_name }}</a>
+        </nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+            <p class="description" [innerHtml]="answer.body"></p>
+     
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      </nz-list-item>
+  </nz-list>
